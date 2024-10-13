@@ -8,7 +8,10 @@
 <body>
     <h1>
         <?php 
-            echo "Olá Mundo!\u{1F30E}";
+            echo "<p>Olá Mundo!\u{1F30E}</p>";
+            date_default_timezone_set("America/Sao_Paulo");
+            echo "Hoje é dia " . date("d/M/Y");
+            echo " e a hora atual é " . date("G:i:s");
         ?>
     </h1>
     <p>Vamos tentar nos livrar da maldição.</p>
