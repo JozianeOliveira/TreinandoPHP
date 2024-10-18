@@ -12,13 +12,23 @@
     </header>
     <main>
         <?php 
-        $valor = $_GET["valor"];
-        $dolar = 0;
-        $conversao = $valor * $dolar;
-        echo "<p>Seus R$ $valor equivalem a <strong>US$ $conversao</strong></p>";
-        echo "<p>*Cotação obtida diretamente do site do <strong>Banco Central do Brasil</strong>.</p>";
+        $valor = $_GET["valor"] ?? 0;
+        $inicio = date("m-d-Y", strtotime("- 7 days"));
+        $fim = date("m-d-Y");
+        $url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial=\''. $inicio .'\'&@dataFinalCotacao=\''. $fim .'\'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json&$select=cotacaoCompra,dataHoraCotacao';
+
+        $dados = json_decode(file_get_contents($url), true);
+
+        
+
+        $dolar = $dados["value"][0]["cotacaoCompra"];
+        $conversao = $valor / $dolar;  
+        $padrao = numfmt_create("pt_BR", NumberFormatter::CURRENCY); //biblioteca intl, formatação de moedas - internacionalização
+        
+        echo "<p>Seus " . numfmt_format_currency($padrao, $valor, "BRL") . " equivalem a " . numfmt_format_currency($padrao, $conversao, "USD") . "</p>";
+        echo "<p><strong>*Cotação de " . numfmt_format_currency($padrao, $dolar, "USD") . "</strong> vinda da <a href='https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/aplicacao#!/recursos/CotacaoDolarPeriodo#eyJmb3JtdWxhcmlvIjp7IiRmb3JtYXQiOiJqc29uIiwiJHRvcCI6MSwiZGF0YUZpbmFsQ290YWNhbyI6IjEwLTE4LTIwMjQiLCJkYXRhSW5pY2lhbCI6IjEwLTExLTIwMjQiLCIkb3JkZXJieSI6IgQyBCBkZXNjIn0sInByb3ByaWVkYWRlcyI6WzAsMl19' target='_blank'>API do Banco Central</a>.</p>";
         ?>
-        <p><a href="javascript:history.go(-1)">Voltar</a></p>
+        <button onclick="javascript:history.go(-1)">&#x2B05; Voltar</button>
     </main>
 </body>
 </html>
