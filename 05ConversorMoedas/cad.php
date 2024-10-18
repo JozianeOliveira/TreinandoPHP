@@ -12,13 +12,15 @@
     </header>
     <main>
         <?php 
-        $valor = $_GET["valor"];
+        $valor = $_GET["valor"] ?? 0;
         $dolar = 5.50;
-        $conversao = $valor * $dolar;
-        echo "<p>Seus R$ $valor equivalem a <strong>US$ $conversao</strong></p>";
-        echo "<p>*<strong>Cotação fixa de R$ $dolar</strong> informada diretamente no código.</p>";
+        $conversao = $valor / $dolar;  
+        $padrao = numfmt_create("pt_BR", NumberFormatter::CURRENCY); //biblioteca intl, formatação de moedas - internacionalização
+        
+        echo "<p>Seus " . numfmt_format_currency($padrao, $valor, "BRL") . " equivalem a " . numfmt_format_currency($padrao, $conversao, "USD") . "</p>";
+        echo "<p><strong>*Cotação fixa de " . numfmt_format_currency($padrao, $dolar, "USD") . "</strong> informada diretamente no código.</p>";
         ?>
-        <p><a href="javascript:history.go(-1)">Voltar</a></p>
+        <button onclick="javascript:history.go(-1)">&#x2B05; Voltar</button>
     </main>
 </body>
 </html>
