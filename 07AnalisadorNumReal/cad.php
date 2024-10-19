@@ -12,14 +12,18 @@
     </header>
     <main>
         <?php 
-        $numero = $_GET["numero"];
-        echo "<p>Analisando o número  <strong>$numero</strong> informado pelo usuário:</p>";
-        $inteiro = intval($numero);
-        echo "<p>A parte inteira do número é <strong>$inteiro</strong></p>";
+        $numero = $_GET["numero"] ?? 0;
+        echo "<p>Analisando o número <strong>" . number_format($numero, 3, ",", ".") . "</strong> informado pelo usuário:</p>";
+
+        $inteiro = (int) $numero;
+
+        echo "<p>A parte inteira do número é <strong>" . number_format($inteiro, 0, ",", ".") . "</strong></p>";
+
         $frac = $numero - $inteiro;
-        echo "<p>A parte fracionária do número é <strong>$frac</strong></p>";
+
+        echo "<p>A parte fracionária do número é <strong>" . number_format($frac, 3, ",", ".") . "</strong></p>";
         ?>
-        <p><a href="javascript:history.go(-1)">Voltar</a></p>
+        <button onclick="javascript:history.go(-1)">Voltar</button>
     </main>
 </body>
 </html>
