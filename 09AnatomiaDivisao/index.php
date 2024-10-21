@@ -16,18 +16,29 @@
         <h1>Anatomia de uma Divisão</h1>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="get">
             <label for="v1">Dividendo</label>
-            <input type="number" name="v1" id="v1" value="<?=$dividendo?>">
+            <input type="number" name="v1" id="v1" min="0" value="<?=$dividendo?>">
             <label for="v2">Divisor</label>
-            <input type="number" name="v2" id="v2" value="<?=$divisor?>">
+            <input type="number" name="v2" id="v2" min="1" value="<?=$divisor?>">
             <input type="submit" value="Analisar">
         </form>
 
         <section id="resultado">
             <h2>Estrutura da divisão</h2>
             <?php 
-            $resultado = $dividendo / $divisor;
-            $resto = $dividendo - ($resultado * $divisor); 
+            $quociente = intdiv($dividendo, $divisor);
+            $resto = $dividendo %  $divisor; 
             ?>
+
+            <table class="divisao">
+                <tr>
+                    <td><?=$dividendo?></td>
+                    <td><?=$divisor?></td>
+                </tr>
+                <tr>
+                    <td><?=$resto?></td>
+                    <td><?=$quociente?></td>
+                </tr>
+            </table>
         </section>
     </main>
 </body>
