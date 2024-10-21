@@ -9,7 +9,7 @@
 <body>
 <?php 
     // Capturando os dados do Formulário Retroalimentado
-    $salario = $_GET['sal'] ?? 0;
+    $salario = $_GET['sal'] ?? 1412;
     $salmin = 1_412.00;
     ?>
 
