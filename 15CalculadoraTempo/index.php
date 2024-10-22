@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raizes Quadradas e Cúbicas</title>
+    <title>Calculadora de Tempo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
