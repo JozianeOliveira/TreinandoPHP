@@ -24,7 +24,6 @@
         <h2>Totalizando tudo</h2>
 
         <?php 
-            // Cálculos corrigidos
             $sem = intdiv($seg, 604800);
             $resto = $seg % 604800;
             
